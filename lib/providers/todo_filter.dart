@@ -28,4 +28,10 @@ class TodoFiter with ChangeNotifier {
   TodoFiterState _state = TodoFiterState.initial();
   TodoFiterState get state => _state;
 
+  //state 변경
+  void changeFilter(Filter newFilter) {
+    _state = _state.copyWith(filter: newFilter);
+        notifyListeners();
+
+  }
 }
