@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todolist/providers/active_todo_count.dart';
 
 class TodoHeader extends StatelessWidget{
   const TodoHeader({Key? key}) : super(key: key);
@@ -13,7 +15,7 @@ class TodoHeader extends StatelessWidget{
           style: TextStyle(fontSize: 40.0),
         ),
         Text(
-          '0 items left',
+          '${context.watch<ActiveTodoCount>().state.activeTodoCount} items left',
           style: TextStyle(
             fontSize: 20.0,
             color: Colors.redAccent,
