@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/todo_list.dart';
 import 'todo_pages_sub.dart';
 
 class TodosPage extends StatefulWidget {
@@ -22,7 +23,10 @@ class _TodosPageState extends State<TodosPage> {
               vertical: 40.0,
             ),
             child: Column(
-              children: [TodoHeader()],
+              children: [
+                TodoHeader(),
+                CreateTodo(),
+              ],
             ),
           )
         ),
@@ -30,3 +34,35 @@ class _TodosPageState extends State<TodosPage> {
     );
   }
 }
+
+class CreateTodo extends StatefulWidget {
+  const CreateTodo({super.key});
+
+  @override
+  State<CreateTodo> createState() => _CreateTodoState();
+}
+
+class _CreateTodoState extends State<CreateTodo> {
+  final newTodoController = TextEditingController();
+
+  @override
+  void dispose() {
+    newTodoController.dispose();
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return const TextField(
+      controller: newTodoController,
+      decoration: InputDecoration(labelText: 'what'),
+      onSubmitted: (String? todoDesc){
+        if(todoDesc != null && todoDesc.trim().isNotEmpty) {
+          context.read<TodoList>().addTodo(todoDesc);
+          newTodoController.clear();
+        }
+      },
+    );
+  }
+}
+
+
